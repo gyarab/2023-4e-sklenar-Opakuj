@@ -59,4 +59,4 @@ yarn start
 
 ### Dokumentace
 
-Doporučuju editor [`Overleaf`](https://www.overleaf.com)
+Doporučuju editor [`Typst`](https://typst.app)
