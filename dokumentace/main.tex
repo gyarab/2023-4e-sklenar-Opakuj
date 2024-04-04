@@ -1,0 +1,279 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{biblatex}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{minted}
+\usepackage{listings}
+\usepackage[raggedright,pagestyles]{titlesec}
+\usepackage{color}
+\usepackage{textcomp} % for upquote
+
+%
+% ECMAScript 2015 (ES6) definition by Gary Hammock
+%
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+  morekeywords=[1]{await, async, case, catch, class, const, default, do,
+    enum, export, extends, finally, from, implements, import, instanceof,
+    let, static, super, switch, throw, try},
+  morestring=[b]` % Interpolation strings.
+}
+
+
+%
+% JavaScript version 1.1 by Gary Hammock
+%
+% Reference:
+%   B. Eich and C. Rand Mckinney, "JavaScript Language Specification
+%     (Preliminary Draft)", JavaScript 1.1.  1996-11-18.  [Online]
+%     http://hepunx.rl.ac.uk/~adye/jsspec11/titlepg2.htm
+%
+
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+    new, return, this, typeof, var, void, while, with},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, null, true, boolean, number, undefined,
+    Array, Boolean, Date, Math, Number, String, Object},
+  % Built-ins.
+  morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape},
+  sensitive,
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]',
+  morestring=[b]"
+}[keywords, comments, strings]
+
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+\lstdefinestyle{JSES6Base}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  frame=none,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=false,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+  language=JavaScript,
+  style=JSES6Base
+}
+\lstdefinestyle{ES6}{
+  language=ES6,
+  style=JSES6Base
+}
+\def\title{Opakuj!}
+\def\Author{Miroslav Sklenář}
+
+\geometry{
+ a4paper,
+ left=35mm,
+ top=25mm,
+ right=25mm,
+ bottom=25mm,
+ }
+\newpagestyle{main}{%
+  \sethead[\thepage][][\chaptertitle]{\chaptertitle}{}{\thepage}
+  \headrule
+}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter{ }}{0pt}{\Huge}
+\setstretch{1.5}
+\addbibresource{zdroje.bib}
+\bibliography{zdroje}
+\renewcommand\lstlistingname{Příloha}
+\DeclareFieldFormat{urldate}{(Navštíveno dne #1)}
+\begin{document}
+\graphicspath{{./img/}}
+\titlelabel{\thetitle.\quad}
+\setcounter{tocdepth}{3}
+\renewcommand*\contentsname{Obsah}
+\renewcommand{\bibfont}{\small}
+%\renewcommand{\thesection}{\Roman{section}}
+%\renewcommand{\thesubsection}{\thesection.\Roman{subsection}}
+%\renewcommand{\thesubsubsection}{\thesubsection.\Roman{subsubsection}}
+\renewcommand\listoflistingscaption{Seznam příloh}
+\renewcommand{\listingscaption}{Příloha}
+\input{titlr}
+\newpage{}
+\thispagestyle{empty}
+\mbox{}
+\vfill
+Prohlašuji, že jsem jediným autorem tohoto projektu, všechny citace jsou řádně označené a všechna použitá literatura a další zdroje jsou v práci uvedené. Tímto dle zákona 121/2000 Sb. (tzv. Autorský zákon) ve znění pozdějších předpisů uděluji bezúplatně škole Gymnázium, Praha 6, Arabská 14
+oprávnění k výkonu práva na rozmnožování díla (§ 13) a práva na sdělování díla veřejnosti (§ 18) na dobu časově neomezenou a bez omezení územního rozsahu.
+\newline
+V Praze dne \hfill \Author
+\newpage{}
+\thispagestyle{empty}
+\section*{Anotace}
+Úkolem je vytvořit aplikaci pro opakování maturitních otázek (otázky a odpovědi by vytvářel sám uživatel podle vzorového textového souboru). Za každou správnou odpověď by jakoby zaútočil na
+nepřítele a tím mu ubíral životy (počet otázek k danému maturitnímu tématu), pro hráče by platilo, že za špatnou odpověď by mizely životy jemu (měl by omezený počet např. 3).
+Způsob otázek by si mohl také vybrat např.. spojovačka, vyběr spravné odpovědi, napsat odpověď,...
+Program bude implementovat učící algoritmus, který bude vybírat otázky k zodpovězení na základě správnosti předchozích odpovědí.
+
+\newpage
+\setcounter{page}{1}
+\tableofcontents 
+\newpage
+\chapter{Úvod}
+Na úvod bych chtěl říci, že aplikace je dělána pro studenty, kteří potřebují opakovat - procvičovat než-li učit. Aplikace měla být takto koncipována už od začátku, ale nedostatek nadhledu autora, způsobil, že aplikace se v některých částech odloučila od původního znění zadání, ale duch této aplikace zůstal stejný, a to umožnit studentům zopakovat si již vypracované témata/otázky o trochu zajímavějším způsobem než je jen slepě recitovat z popsaného papíru.
+\section{Myšlenka za aplikací}
+Prvotní myšlenkou za touto aplikací stál pocit nutnosti mít nějakou pomůcku k učení/opakování na maturitu. Bohužel, ale tato myšlenka přišla příliš pozdě, ideální by bylo, kdyby přišla o rok či dva dříve, aby byl čas ji doladit, popřípadě dodělat včas, kdy by byla ještě k užitku. No na začátku školního roku, to připadalo autorovi jako celkem dobrý nápad, který by mohl mít i dost užitku, ten ale nepředpokládal, že vývoj by mohl zabrat tolik času.
+\newpage
+
+\chapter{Front-end webové stránky}
+\section{Domovská stránka}
+V domovské stránce - to je stránka, která se uživateli zobrazí po prvotním načtení webové stránky, se nachází pouze uvítání uživatele. Uživatel zde nemůže nic dělat, stránka je zde pouze s estetického hlediska, a tak musí uživatel na části stránky označované jako \emph{navbar} se buď přihlásit nebo jít na stránku s veřejnými cvičeními (pojmenované "Prohlížet") či na stránku s návody ("Pomoc").
+
+\section{Rozložení "navbaru"}
+Navbar je označení pro horní lištu na stránce, nejčastěji s tlačítky pro ostatní stránky. V této aplikaci je navbar rozdělen na dvě poloviny. V levé polovině se nacházá odkazy pro předměty stránky - cvičení, nápověda, domovská stránka,... a pravá polovina, kde se nachází odkazy týkající se uživatele a to přihlášení, odhlášení, profil uživatele a také tlačítko pro změnu barevného tématu stránky - tmavé a světlé,  výchozí nastavení tématu vychází ze systémového tématu.
+
+\section{Stránka "Prohlížet"}
+Na této stránce se nachází cvičení, která byla označena jako \emph{Public}, což znamená veřejné, a proto jsou přístupná i nepřihlášeným uživatelům. Pokud však chce někdo přidat cvičení mezi veřejná, tak musí být přihlášen a také cvičení mít napsané v textovém formátu (.txt) podle instrukcí ze stránky "Pomoc". Poté jej může přidat po kliknutí na zelené tlačítko se symbolem plus na stránce "Má cvičení".
+
+\section{Stránka "Pomoc"}
+Zde se nachází návody jak napsat cvičení, jak je nahrát na server (do databáze), jaké mají mít formy, atd.. Tato stránka slouží pouze k informování uživatele, a ten tak zde nemůže nic dělat.
+
+\section{Stránka "Má cvičení"}
+Na stránce "Má cvičení" se nachází seznam všech cvičení, která uživatel kdy nahrál. Tato cvičení jsou reprezentována "kartičkami", kdy každé cvičení má tvar oblého čtverce a pozadí tohoto čtverce má odlišnou barvu od pozadí stránky. Na této "kartě" se nachází tři tlačítka - pro spuštění, pro úpravu a pro odstranění. Pokud by uživatel chtěl odstranit cvičení, tak je po stisknutí tlačítka dotázán ještě jednou, zda si opravdu přeje smazat cvičení. Cvičení jsou řazena do řad a tato řada je vždy zakončena zeleným tlačítkem se znaménkem plus. Toto tlačítko se také nachází na vrchu stránky, pro případ, že by uživatel měl příliš mnoho cvičení a tak by nechtěl hledat zelené tlačítko někdo na spodku stránky. Bohužel upravování cvičení, nefunguje, jak by mělo, vzhledem k tomu, že během vývoje se zjistilo, že přetěžuje prohlížeč a proto není doporučováno jeho používání, i když se dá říct, že "funguje". Zelené tlačítko s pootočeným trojúhelníčkem přesune uživatel na stránku, kde si může přizpůsobit obtížnost daného opakování - ta je rozdělena na tři úrovně - lehká, střední a obtížná
+
+\section{Stránka "Vytvořit cvičení"}
+Stránka vytvořit cvičení, je, jak název napovídá určená k vytváření cvičení. To je zajištěno formátem formuláře, kdy jsou deklarována povinná pole - jméno tématu (\emph{name}), jméno otázky (\emph{question}) a typ otázky (\emph{type}), ten je vybírán pomocí HTML funkce \emph{select}, kdy uživatel má na výběr z předem definovaných hodnot. Po vybrání typu otázky, se uživateli zobrazí adekvátní rozhraní pro danou otázku - pro dopňování do věty se zobrazí pole pro větu a pole pro odpovědi, pro jednu odpověd na otázku, se zobrazí jen pole pro odpověď, pro dvojice se vygenerují dvě pole pro text, pro vybírání správných odpovědí mezi nesprávnými, se zobrazí dva sloupce, každý pro vlastní skupinu odpovědí (správné, špatné).
+U otázek, kde je možné zadat více správných odpovědí, je vždy tlačítko se znaménkem plus pro přidání dalšího pole pro danou odpověď. Pokud je cvičení hotové - tzn. že podmínka pro formulář je splněna - všechny požadované hodnoty jsou vyplněny, tak uživatel může finalizovat svou tvorbu kliknutím na tlačítko v pravém horním rohu rozhraní vytvářeče cvičení s nápisem "Hotovo", kdy odešle objekt \emph{exercise} serveru, který jej zkontroluje a pokud je vše jak má být, tak pošle pozitivní odpověď, která pak uživatele přesměruje na stránku "Má cvičení".
+
+\section{Stránka s profilem uživatele}
+Zde se uživatel ocitne po přihlášení, tím se může ujistit, že je opravdu přihlášený. Také zde může vidět své statistiky, pokud již nějaká cvičení odehrál, zpracované do koláčového grafu pomocí knihovny \emph{Chart.js}.
+
+\section{Skripty na front-endu}
+\subsection{ExerciseScript.ts}
+V tomto skriptu je převáděn textový soubor na objekt \emph{Exercise} podle předem stanovených norem. Každý soubor se cvičením musí mít na prvním řádku \emph{\#JménoTématu} následované na dalším řádku otázkou, která musí začínat číslem 1, poté tečkou a následně otázkou, poté musí na dalším řádku být \emph{Typ-} a značka pro daný typ otázky - \$, \%, \&, *  - doplnění do textu, jedna správná odpověď, spojování dvojic, výběr správných odpovědí. Následně musí být další otázka oddělena prázdnou řádkou, ale uživatel si musí zároveň dát pozor, aby soubor nekončil prázdnou řádkou, jinak mu aplikace vyhodí error, když bude chtít cvičení nahrát.
+\newpage
+
+\section{Vuex.js}
+Vuex umožňuje ukládat data mimo prostředí \emph{Vue}, a proto je vhodné pro uložení např. uživatelského profilu či uživatelovy session, kdy tyto data jsou přístupná kdykoliv a kdekoliv na stránce.
+
+\section{Vuetify.js}
+Vuetify.js je komponentový framework pro Vue.js. Tento framework využívá systém komponentů z frameworku Vue.js, kdy má v sobě "knihovnu" předem nadesignovaných komponent připravených k použití. Tyto komponenty často přichází i s řadou skriptů pro manipulaci či kontrolu údajů. Proto je velice snadné složit relativně komplexní stránky s patřičnou funkcionalitou. Bohužel tento framework je opravdu zamýšlen jakožto knihovna prefabrikovaných komponent, a tak neumožňuje jemnou manipulaci s prvky. A proto bylo Vuetify doplňeno o framework \emph{Tailwind CSS}, který právě umožňuje jemnou konfiguraci vybraných prvků.
+
+\chapter{Back-end webové stránky}
+
+\section{Server}
+\subsection{Express.js}
+Server je vytvářen skrze framework \emph{Express.js} pro \emph{Node.js}, jsou v něm nastavovány funkce, které se mají spustit společně se serverem. Např. připojení knihovny \emph{Passport.js} či zinicializování routeru pro login a API (cesty routeru pro komunikaci mezi front-endem a back-endem.
+
+\subsection{Databáze}
+Databáze je zajištěna cloudově přes \emph{MongoDB}. Komunikaci serveru a databáze zajišťuje knihovna \emph{mongoose}. \emph{Mongoose} umožňuje vytváření schémat do databáze, zjednodušuje komunikaci a také zajišťuje bezpečné manipulování s databází. To všechno byly důvody, proč jsem jej zvolil pro mou aplikaci.
+
+\subsection{Datábázová schémata}
+\subsubsection{User.ts}
+Toto je schéma pro uživatele, které je vyplněno při přihlášení uživatele pomocí GSI. Jediný údaj, který je vygenerován lokálně je userID. UserID je vygenerováno pomocí knihovny \emph{NanoID}, ta zajišťuje nenáročně a zároveň bezpečné generování ID. Pod tímto odstavcem lze vidět zjednodušené zápis schématu pro mongoose.
+\par
+\vspace{2cm}
+\begin{lstlisting}[style=ES6, caption={\lbrack Kód\rbrack Schéma pro mongoose pro uživatele}]
+  googleID: String;
+  displayName: String;
+  firstName: String;
+  lastName: String;
+  email: String;
+  pfp: String;
+  userID: String;
+\end{lstlisting}
+\subsubsection{ExercisePrivate.ts a ExercisePublic.ts}
+V tomto schématu se nachází zápis cvičení pro soukromé účely - \emph{ExercisePrivate} a zároveň pro \emph{ExercisePublic}. Tato schémata jsou stejná, ale zároveň jsou oddělena pro jednodušší používání a liší se jen v hodnotě \emph{visibility}. Pod tímto odstavcem lze vidět zjednodušené zápis schématu pro mongoose.
+\par
+\vspace{1cm}
+\begin{lstlisting}[style=ES6, caption={\lbrack Kód\rbrack Schéma pro mongoose pro cvičení}]
+    userID: String;
+    name: String;
+    question: [{
+        number: number;
+        question: String;
+        type: String;
+        constext: String;
+        answer: String;
+        answersRight: [[{ String }]];
+        answersWrong: [[{ String }]];  
+    }];
+    exerciseID: String;
+    visibility: String;
+\end{lstlisting}
+
+\subsubsection{UserStatistics.ts}
+Zde se ukládají statistiky uživatele k zobrazení na jeho profilu. Ne všechny attributy jsou využity přímo na stránce profilu, ale jsou k dispozici v databázi pro budoucí využití. Do databáze je ukládán počet všech odehraných cvičení, počet všech odpovědí, počet všech správnýc i špatných odpovědí, počet bezchybně dokončených cvičení, ale také počet nezvládnutých cvičení a nakonec i pole identifikátorů (ID) všech bezchybných nebo naopak nezvládnutých cvičení, pro případné zobrazování na stránce profilu.
+\par
+\vspace{1cm}
+
+\begin{lstlisting}[style=ES6, caption={\lbrack Kód\rbrack Schéma pro mongoose pro statistiky uživatele}]
+    userID: String;
+    totalExercisesPlayed: number;
+    totalAnswers: number;
+    totalCorrectAnswers: number;
+    totalIncorrectAnswers: number;
+    totalAcedExercises: number;
+    totalFailedExercises: number;
+    exactFailedExercises: [{ String }];
+    exactAcedExercises: [{ String }];
+\end{lstlisting}
+
+\subsection{Vue.js}
+Pro generování front-endu bylo použito Vue.js. To umožňuje rozdělit složitá uživatelská rozhraní do jednoduších \emph{component}, které je možné využít znovu a zároveň jinde. Také je celý klient generován client-side, to znamená, že HTML rozhraní, které uživatel vidí je vytvořeno přímo u něj v prohlížeči. Protože, ale server musí posílat spoustu dat klientovi, tak je příliš náročný pro free hosting a tak nemůže být nikde hostován zadarmo a proto také není přístupný na internetu. Mimo to také byl použit framework  \emph{VuetifyJS} pro zjednodušení návrhu a designu jednotlivých stránek. Zároveň byl ale využit framework kaskádových stylů \emph{Tailwind.css} pro doladění jednotlivých prvků.
+
+\section{Přihlášení}
+Přihlášení je zajištěno skrze Gmail a GSI(Google sign-in) a není tedy nutné zajišťovat registrace nových uživatelů. Přihlášení je zpracováváno skrze knihovnu google-one-tap middlewaru \emph{Passport.js}. Uživatelský profil je vytvořen do databáze s poskytnutými daty od Googlu popřípadě pokud již existuje záznam o uživateli v databázi, tak jsou jeho data načtena odtud.
+
+\subsection{Skript Auth.js}
+V \emph{auth.js} je spuštěna funkce \emph{use} middlewaru \emph{Passport.js} a té se přiřadí objekt \emph{Strategy} z knihovny \emph{google-one-tap}. Ta se postará o ověření a zpracování přihlášení uživatele, který se přihlašuje skrze Gmail, pokud uživatel již není v databázi, tak vytvoří jeho záznam. Pokud již uživatel existuje, tak jej pustí dál.
+
+\section{Serverové skripty}
+\subsection{ExercisesCheck.ts}
+Tento soubor obsahuje několik funkcí, které mají kontrolovat, zda nenastal v objektu \emph{Exercise} nějaký něčekaný status a to zejména undefined nebo null. Tyto dvě hodnoty by způsobily problémy ve front-endové části aplikace a tak se musí zajistit, že se nikdy nedostanou do databáze. To je zajištěno několika funkcemi, které kontrolují podmínky pro různé atributy z objektu \emph{exercise} nebo také podobjektu \emph{question}.
+
+\subsection{Exercises.ts}
+Zde nachází funkce \emph{checkJSON} a v ní se pouští v cyklu funkce z \emph{ExercisesCheck.ts} na objekt \emph{exercise} a pokud něco není v pořádku, tak změní boolean stav proměnné \emph{isItOk}, který tato funkce vrací. Tento soubor obsahuje také dvě funkce pro uložení cvičení do databáze a to pro veřejnost - public a soukromě - private.
+
+\chapter{Závěr}
+Práce si myslím, že se povedla, samozřejmě vždy je prostor pro zlepšení a to platí i pro moji aplikaci. Je škoda, že aplikace je příliš náročná na free hosting, jinak by bylo skvělé ji mít někde běžet a tedy i využívat. Myslím si, že práce splňuje základní nároky studenta, který si chce opakovat již zpracované otázky/témata trochu zajimavěji než prostým přeříkáváním vypsaných informací, ale je zde prostor pro "opakovací" prvky, a to zejména onen učící algoritmus. Ten je inspirován chováním aplikace Duolingo, avšak je mnohem "hloupější" a tudíž má obrovské prostory pro zlepšení a zpestření učícího procesu, ale věřím, že většině studentů by stačil. Kdybych měl celou práci shrnout, tak si myslím, že byla pro mě velice přínosná, protože jsem se naučil pracovat s TypeScriptem a alespoň trochu jsem se zorientoval v prostředí frameworku Vue.js.
+
+\newpage
+\nocite{*}
+\printbibliography[heading=bibintoc,title={Zdroje}]
+\newpage
+\addcontentsline{toc}{chapter}{Seznam příloh}
+\listoflistings
+
+\end{document}
