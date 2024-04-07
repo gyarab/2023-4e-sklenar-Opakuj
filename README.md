@@ -17,9 +17,9 @@
 
 ## RP-4E
 
-Stránka by měla být k dispozici na této adrese:
-[`https://rocnikova-prace-4e.onrender.com`](https://rocnikova-prace-4e.onrender.com)
-(nefunguje - aplikace je příliš náročná na free hosting)
+Stránka je k dispozici na této adrese:
+[`https://opakuj.svs.gyarab.cz/`](https://opakuj.svs.gyarab.cz/)
+
 
 ### Download
 
@@ -37,13 +37,13 @@ NPM
 ```bash
 npm install
 ```
-Yarn(doporučuji)
+Yarn (doporučuji)
 ```bash
 yarn
 ```
 Jakmile jsou dependencies nainstalované stačí projekt spustit:
 
-NPM(development)
+NPM (development)
 ```bash
 npm run dev
 ```
@@ -51,10 +51,15 @@ Yarn
 ```bash
 yarn dev
 ```
-Yarn(build&production)
+Yarn (build&production)
 ```bash
 yarn build
 yarn start
+```
+NPM (build&production)
+```bash
+npm run build
+npm run start
 ```
 
 ### Dokumentace
